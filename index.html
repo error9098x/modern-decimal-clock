@@ -442,6 +442,17 @@
         box-shadow: var(--shadow-glow);
       }
 
+      /* Fullscreen button - only visible on mobile */
+      .fullscreen-btn {
+        display: none;
+      }
+
+      @media (max-width: 480px) {
+        .fullscreen-btn {
+          display: flex;
+        }
+      }
+
       /* ============================================
          FOOTER - Fixed overlapping issue
          ============================================ */
