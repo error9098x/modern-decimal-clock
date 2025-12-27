@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/clock.svg" />
+    
+    <!-- Mobile viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    
+    <!-- Theme color (matches dark mode) -->
+    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8f8fc" media="(prefers-color-scheme: light)" />
+    
+    <!-- iOS specific -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Decimal Clock" />
+    
+    <!-- Prevent phone number detection -->
+    <meta name="format-detection" content="telephone=no" />
+    
+    <meta name="description" content="Experience time differently with French Revolutionary decimal time" />
+    <title>Decimal Clock — Revolutionary Time</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@200;300;400;500&display=swap" rel="stylesheet" />
+    
+    <style>
+      /* ============================================
+         BASE & RESET
+         ============================================ */
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        color-scheme: dark light;
+        hanging-punctuation: first last;
+        /* Prevent iOS text size adjustment */
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        min-height: 100dvh; /* Dynamic viewport height for mobile */
+        font-family: var(--font-display);
+        background: var(--bg-primary);
+        color: var(--text-primary);
+        /* Prevent overscroll bounce on iOS */
+        overscroll-behavior: none;
+        /* Smooth scrolling */
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        transition: background-color 0.5s ease, color 0.3s ease;
+      }
+
+      /* ============================================
+         DESIGN TOKENS
+         ============================================ */
+
+      :root {
+        /* Typography */
+        --font-display: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+        
+        /* Fluid Typography Scale */
+        --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+        --text-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+        --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+        --text-lg: clamp(1.125rem, 1rem + 0.625vw, 1.375rem);
+        --text-xl: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
+        --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+        --text-hero: clamp(3.5rem, 2.5rem + 5vw, 9rem);
+        
+        /* Spacing Scale (4px base) */
+        --space-1: 0.25rem;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-5: 1.25rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-10: 2.5rem;
+        --space-12: 3rem;
+        --space-16: 4rem;
+        --space-20: 5rem;
+        --space-24: 6rem;
+        
+        /* Border Radius */
+        --radius-sm: 0.375rem;
+        --radius-md: 0.5rem;
+        --radius-lg: 0.75rem;
+        --radius-xl: 1rem;
+        --radius-2xl: 1.5rem;
+        --radius-full: 9999px;
+        
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --shadow-glow: 0 0 40px var(--accent-glow);
+        
+        /* Transitions */
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        
+        --duration-fast: 150ms;
+        --duration-normal: 300ms;
+        --duration-slow: 500ms;
+      }
+
+      /* ============================================
+         THEMES
+         ============================================ */
+
+      [data-theme="dark"] {
+        --bg-primary: oklch(8% 0.015 270);
+        --bg-secondary: oklch(12% 0.015 270);
+        --bg-elevated: oklch(16% 0.02 270);
+        --bg-hover: oklch(20% 0.02 270);
+        --text-primary: oklch(98% 0.005 270);
+        --text-secondary: oklch(75% 0.01 270);
+        --text-muted: oklch(55% 0.01 270);
+        --accent: oklch(75% 0.15 165);
+        --accent-hover: oklch(80% 0.15 165);
+        --accent-glow: oklch(75% 0.15 165 / 0.35);
+        --border: oklch(25% 0.015 270);
+        --border-subtle: oklch(20% 0.01 270);
+        --glass-bg: oklch(15% 0.02 270 / 0.7);
+        --glass-border: oklch(30% 0.02 270 / 0.5);
+        --gradient-radial: radial-gradient(ellipse 80% 50% at 50% -20%, oklch(25% 0.1 270 / 0.4), transparent);
+        --gradient-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      }
+
+      [data-theme="light"] {
+        --bg-primary: oklch(98% 0.005 270);
+        --bg-secondary: oklch(95% 0.008 270);
+        --bg-elevated: oklch(100% 0 0);
+        --bg-hover: oklch(92% 0.01 270);
+        --text-primary: oklch(15% 0.02 270);
+        --text-secondary: oklch(40% 0.02 270);
+        --text-muted: oklch(60% 0.015 270);
+        --accent: oklch(50% 0.18 165);
+        --accent-hover: oklch(45% 0.18 165);
+        --accent-glow: oklch(50% 0.18 165 / 0.25);
+        --border: oklch(88% 0.01 270);
+        --border-subtle: oklch(92% 0.005 270);
+        --glass-bg: oklch(100% 0 0 / 0.8);
+        --glass-border: oklch(85% 0.01 270 / 0.6);
+        --gradient-radial: radial-gradient(ellipse 80% 50% at 50% -20%, oklch(90% 0.05 165 / 0.3), transparent);
+      }
+
+      [data-theme="sunset"] {
+        --bg-primary: oklch(12% 0.04 30);
+        --bg-secondary: oklch(16% 0.05 30);
+        --bg-elevated: oklch(20% 0.06 30);
+        --bg-hover: oklch(24% 0.06 30);
+        --text-primary: oklch(95% 0.02 60);
+        --text-secondary: oklch(75% 0.04 50);
+        --text-muted: oklch(55% 0.04 40);
+        --accent: oklch(70% 0.2 30);
+        --accent-hover: oklch(75% 0.2 35);
+        --accent-glow: oklch(70% 0.2 30 / 0.4);
+        --border: oklch(28% 0.05 30);
+        --border-subtle: oklch(22% 0.04 30);
+        --glass-bg: oklch(18% 0.05 30 / 0.7);
+        --glass-border: oklch(35% 0.06 30 / 0.5);
+        --gradient-radial: radial-gradient(ellipse 80% 50% at 50% -20%, oklch(40% 0.15 30 / 0.5), transparent);
+      }
+
+      [data-theme="ocean"] {
+        --bg-primary: oklch(10% 0.04 230);
+        --bg-secondary: oklch(14% 0.05 230);
+        --bg-elevated: oklch(18% 0.06 230);
+        --bg-hover: oklch(22% 0.06 230);
+        --text-primary: oklch(96% 0.015 200);
+        --text-secondary: oklch(75% 0.03 210);
+        --text-muted: oklch(55% 0.03 220);
+        --accent: oklch(70% 0.14 200);
+        --accent-hover: oklch(75% 0.14 200);
+        --accent-glow: oklch(70% 0.14 200 / 0.4);
+        --border: oklch(26% 0.05 230);
+        --border-subtle: oklch(20% 0.04 230);
+        --glass-bg: oklch(16% 0.05 230 / 0.7);
+        --glass-border: oklch(32% 0.06 230 / 0.5);
+        --gradient-radial: radial-gradient(ellipse 80% 50% at 50% -20%, oklch(35% 0.12 230 / 0.5), transparent);
+      }
+
+      /* ============================================
+         APP CONTAINER - Mobile First
+         ============================================ */
+
+      .app-container {
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-4);
+        padding-top: calc(var(--space-4) + env(safe-area-inset-top));
+        padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      .app-container::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: var(--gradient-radial);
+        pointer-events: none;
+        z-index: 0;
+      }
+      
+      .app-container::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: var(--gradient-noise);
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* ============================================
+         GLASS CARD - Responsive
+         ============================================ */
+
+      .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px) saturate(1.2);
+        -webkit-backdrop-filter: blur(20px) saturate(1.2);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-2xl);
+        padding: var(--space-6);
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      @media (max-width: 480px) {
+        .glass-card {
+          padding: var(--space-4);
+          border-radius: var(--radius-xl);
+          margin: 0 calc(-1 * var(--space-2));
+          width: calc(100% + var(--space-4));
+        }
+      }
+
+      /* ============================================
+         CLOCK CONTAINER
+         ============================================ */
+
+      .clock-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-6);
+      }
+
+      @media (max-width: 480px) {
+        .clock-container {
+          gap: var(--space-4);
+        }
+      }
+
+      .clock-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: var(--space-2) 0;
+      }
+
+      /* ============================================
+         CLOCK DISPLAY STYLES
+         ============================================ */
+
+      .clock-time {
+        font-family: var(--font-mono);
+        font-size: var(--text-hero);
+        font-weight: 200;
+        letter-spacing: -0.02em;
+        font-variant-numeric: tabular-nums;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 50%, var(--text-primary) 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 30px var(--accent-glow));
+        animation: gradient-shift 8s ease infinite;
+      }
+
+      .clock-time-minimal {
+        font-family: var(--font-mono);
+        font-size: var(--text-lg);
+        font-weight: 400;
+        letter-spacing: 0.05em;
+        font-variant-numeric: tabular-nums;
+        color: var(--text-primary);
+        text-shadow: 0 0 10px var(--glass-bg);
+      }
+
+      @keyframes gradient-shift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+
+      .clock-label {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: var(--text-muted);
+      }
+
+      /* ============================================
+         TIME COMPARISON - Stack on mobile
+         ============================================ */
+
+      .time-comparison {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-6);
+        width: 100%;
+        padding-top: var(--space-6);
+        border-top: 1px solid var(--border-subtle);
+      }
+
+      @media (max-width: 400px) {
+        .time-comparison {
+          grid-template-columns: 1fr;
+          gap: var(--space-4);
+          text-align: center;
+        }
+      }
+
+      .time-block {
+        text-align: center;
+      }
+
+      .time-block__value {
+        font-family: var(--font-mono);
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        font-weight: 300;
+        color: var(--text-primary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .time-block__label {
+        font-size: var(--text-xs);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--text-muted);
+        margin-top: var(--space-1);
+      }
+
+      /* ============================================
+         THEME SWITCHER - Mobile optimized
+         ============================================ */
+
+      .theme-switcher {
+        position: fixed;
+        z-index: 100;
+        display: flex;
+        gap: var(--space-1);
+        padding: var(--space-1);
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+        border-radius: var(--radius-full);
+        
+        /* Desktop: top right */
+        top: var(--space-4);
+        right: var(--space-4);
+      }
+
+      @media (max-width: 480px) {
+        .theme-switcher {
+          /* Mobile: bottom center */
+          top: auto;
+          bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+          
+          /* Centering strategy that works with Framer Motion transforms */
+          /* Reset left/right/margins for true centering */
+          left: 0;
+          right: 0;
+          margin-left: auto;
+          margin-right: auto;
+          width: -moz-fit-content;
+          width: fit-content;
+          
+          gap: var(--space-1);
+          padding: var(--space-1);
+        }
+      }
+
+      .theme-btn {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: var(--radius-full);
+        background: transparent;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all var(--duration-normal) var(--ease-out-expo);
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+
+      @media (max-width: 480px) {
+        .theme-btn {
+          width: 40px;
+          height: 40px;
+        }
+      }
+
+      .theme-btn:hover,
+      .theme-btn:active {
+        background: var(--bg-hover);
+        color: var(--text-primary);
+      }
+
+      .theme-btn[data-active="true"] {
+        background: var(--accent);
+        color: var(--bg-primary);
+        box-shadow: var(--shadow-glow);
+      }
+
+      /* ============================================
+         FOOTER - Fixed overlapping issue
+         ============================================ */
+
+      .app-footer {
+        /* Remove fixed positioning */
+        margin-top: auto;
+        padding: var(--space-4) 0;
+        padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+        text-align: center;
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        opacity: 0.6;
+      }
+
+      @media (max-width: 480px) {
+        .app-footer {
+          /* Add extra padding when theme switcher is at bottom */
+          padding-bottom: calc(var(--space-16) + env(safe-area-inset-bottom));
+          font-size: 0.65rem;
+        }
+      }
+
+      /* ============================================
+         INFO TEXT
+         ============================================ */
+
+      .info-text {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: var(--text-xs);
+        max-width: 40ch;
+        line-height: 1.5;
+        opacity: 0.7;
+      }
+
+      @media (max-width: 480px) {
+        .info-text {
+          font-size: 0.7rem;
+          max-width: 30ch;
+        }
+      }
+
+      /* ============================================
+         TOUCH & INTERACTION IMPROVEMENTS
+         ============================================ */
+
+      .analog-clock {
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+      }
+
+      button, 
+      [role="button"] {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+
+      /* ============================================
+         REDUCED MOTION
+         ============================================ */
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      /* ============================================
+         LANDSCAPE MOBILE
+         ============================================ */
+
+      @media (max-height: 500px) and (orientation: landscape) {
+        .app-container {
+          padding: var(--space-2);
+        }
+        
+        .glass-card {
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: var(--space-4);
+          max-width: 100%;
+        }
+        
+        .clock-wrapper {
+          flex: 0 0 auto;
+        }
+        
+        .time-comparison {
+          flex: 1;
+          border-top: none;
+          border-left: 1px solid var(--border-subtle);
+          padding-top: 0;
+          padding-left: var(--space-4);
+        }
+        
+        .info-text,
+        .app-footer {
+          display: none;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
