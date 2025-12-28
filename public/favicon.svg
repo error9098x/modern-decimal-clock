@@ -1,0 +1,66 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- A rich, deep blue gradient for that "App Icon" standard -->
+    <linearGradient id="watchGradient" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6"/> 
+      <stop offset="100%" stop-color="#172554"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background: Squircle -->
+  <rect width="512" height="512" rx="120" fill="url(#watchGradient)"/>
+
+  <!-- THE CLOCK FACE 
+       1. Moved markers outward to create a clear "dial".
+       2. Made markers shorter and thicker (Capsule shape).
+       3. Reduced opacity slightly (80%) so the white "10" pops more.
+  -->
+  <g stroke="white" stroke-opacity="0.6" stroke-width="24" stroke-linecap="round">
+    <!-- 10 (Top Center) -->
+    <line x1="256" y1="60" x2="256" y2="85" />
+    
+    <!-- Clockwise Ticks (Every 36 degrees) -->
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(36 256 256)" />
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(72 256 256)" />
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(108 256 256)" />
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(144 256 256)" />
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(180 256 256)" />
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(216 256 256)" />
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(252 256 256)" />
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(288 256 256)" />
+    <line x1="256" y1="60" x2="256" y2="85" transform="rotate(324 256 256)" />
+  </g>
+
+  <!-- OPTIONAL: A very subtle inner ring to unify the markers (Makes it look like a dial) -->
+  <circle cx="256" cy="256" r="185" stroke="white" stroke-opacity="0.1" stroke-width="2" />
+
+  <!-- The Number 10 
+       Refined size for better spacing.
+       Pure White (Opacity 1.0) so it is the hierarchy leader.
+  -->
+  <g fill="white">
+    <!-- Number 1 -->
+    <path d="M200 200 
+             L170 212 V235 
+             L195 225 V330 
+             H225 V200 H200 Z" />
+             
+    <!-- Number 0 -->
+    <path d="M310 200 
+             C285 200 270 215 270 240 
+             V290 
+             C270 315 285 330 310 330 
+             C335 330 350 315 350 290 
+             V240 
+             C350 215 335 200 310 200 Z 
+             
+             M320 290 
+             C320 302 318 305 310 305 
+             C302 305 300 302 300 290 
+             V240 
+             C300 228 302 225 310 225 
+             C318 225 320 228 320 240 
+             V290 Z" />
+  </g>
+</svg>
+
