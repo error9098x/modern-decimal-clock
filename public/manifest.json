@@ -1,0 +1,37 @@
+{
+  "name": "Decimal Clock — French Revolutionary Time",
+  "short_name": "Decimal Clock",
+  "description": "Convert standard time to French Revolutionary decimal time. Beautiful interactive clock with 10 hours, 100 minutes, 100 seconds.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a12",
+  "theme_color": "#0a0a12",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["utilities", "productivity", "education"],
+  "icons": [
+    {
+      "src": "/clock.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dark Theme",
+      "short_name": "Dark",
+      "description": "Open clock in dark theme",
+      "url": "/?theme=dark"
+    },
+    {
+      "name": "Light Theme",
+      "short_name": "Light",
+      "description": "Open clock in light theme",
+      "url": "/?theme=light"
+    }
+  ],
+  "prefer_related_applications": false
+}
+

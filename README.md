@@ -25,9 +25,11 @@ A beautiful, modern web application that displays time in the French Revolutiona
 
 ### Installation
 
+🌐 **Live Demo:** [clock.sentryagent.io](https://clock.sentryagent.io)
+
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/modern-decimal-clock.git
+git clone https://github.com/error9098x/modern-decimal-clock.git
 cd modern-decimal-clock
 ```
 

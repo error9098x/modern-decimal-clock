@@ -1,26 +1,174 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
   <head>
+    <!-- ============================================
+         PRIMARY META TAGS
+         ============================================ -->
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/clock.svg" />
-    
-    <!-- Mobile viewport -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     
-    <!-- Theme color (matches dark mode) -->
-    <meta name="theme-color" content="#0a0a0f" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#f8f8fc" media="(prefers-color-scheme: light)" />
+    <!-- Primary SEO Tags -->
+    <title>Decimal Clock — French Revolutionary Time Converter | Live Decimal Time</title>
+    <meta name="title" content="Decimal Clock — French Revolutionary Time Converter | Live Decimal Time" />
+    <meta name="description" content="Experience time differently with our beautiful French Revolutionary decimal clock. Convert standard time to decimal time (10 hours, 100 minutes, 100 seconds). Free online tool with dark mode and multiple themes." />
+    <meta name="keywords" content="decimal clock, decimal time, French Revolutionary time, metric time, 10 hour clock, time converter, revolutionary calendar, decimal time converter, online clock, modern clock" />
+    <meta name="author" content="Decimal Clock" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
     
-    <!-- iOS specific -->
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://clock.sentryagent.io/" />
+    
+    <!-- Language & Locale -->
+    <meta name="language" content="English" />
+    <meta http-equiv="content-language" content="en" />
+    <link rel="alternate" hreflang="en" href="https://clock.sentryagent.io/" />
+    <link rel="alternate" hreflang="x-default" href="https://clock.sentryagent.io/" />
+    
+    <!-- ============================================
+         OPEN GRAPH (Facebook, LinkedIn, etc.)
+         ============================================ -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://clock.sentryagent.io/" />
+    <meta property="og:title" content="Decimal Clock — French Revolutionary Time" />
+    <meta property="og:description" content="Experience time differently. Convert standard time to French Revolutionary decimal time with our beautiful, interactive clock." />
+    <meta property="og:image" content="https://clock.sentryagent.io/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Decimal Clock showing French Revolutionary time with analog clock face" />
+    <meta property="og:site_name" content="Decimal Clock" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- ============================================
+         TWITTER CARD
+         ============================================ -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://clock.sentryagent.io/" />
+    <meta name="twitter:title" content="Decimal Clock — French Revolutionary Time" />
+    <meta name="twitter:description" content="Experience time differently. 10 hours, 100 minutes, 100 seconds. Beautiful interactive decimal clock." />
+    <meta name="twitter:image" content="https://clock.sentryagent.io/og-image.png" />
+    <meta name="twitter:image:alt" content="Decimal Clock showing French Revolutionary time" />
+    
+    <!-- ============================================
+         THEME & APPEARANCE
+         ============================================ -->
+    <meta name="theme-color" content="#0a0a12" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f8f8fc" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark light" />
+    
+    <!-- ============================================
+         iOS / APPLE SPECIFIC
+         ============================================ -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Decimal Clock" />
     
-    <!-- Prevent phone number detection -->
-    <meta name="format-detection" content="telephone=no" />
+    <!-- ============================================
+         FAVICONS
+         ============================================ -->
+    <link rel="icon" type="image/svg+xml" href="/clock.svg" />
     
-    <meta name="description" content="Experience time differently with French Revolutionary decimal time" />
-    <title>Decimal Clock — Revolutionary Time</title>
+    <!-- ============================================
+         PWA MANIFEST
+         ============================================ -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- ============================================
+         ADDITIONAL SEO META
+         ============================================ -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="referrer" content="origin-when-cross-origin" />
+    
+    <!-- ============================================
+         SEARCH ENGINE VERIFICATION
+         ============================================ -->
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="a6cpO68-PBYPPtJok9Lfj573zLoYzAatmHqRMSOVf5M" />
+    
+    <!-- Bing Webmaster Tools -->
+    <meta name="msvalidate.01" content="0C494A53D5EAB4244912A79017582A69" />
+    
+    <!-- ============================================
+         STRUCTURED DATA (JSON-LD)
+         ============================================ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://clock.sentryagent.io/#website",
+          "url": "https://clock.sentryagent.io/",
+          "name": "Decimal Clock",
+          "description": "French Revolutionary decimal time converter and visualization",
+          "publisher": {
+            "@id": "https://clock.sentryagent.io/#organization"
+          },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://clock.sentryagent.io/#webapp",
+          "name": "Decimal Clock",
+          "url": "https://clock.sentryagent.io/",
+          "description": "Convert standard time to French Revolutionary decimal time. Interactive clock with 10 hours, 100 minutes, and 100 seconds.",
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "Any",
+          "browserRequirements": "Requires JavaScript",
+          "softwareVersion": "1.0.0",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "Real-time decimal time conversion",
+            "Analog clock visualization",
+            "Multiple color themes",
+            "Dark mode support",
+            "Mobile responsive",
+            "PWA installable"
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://clock.sentryagent.io/#organization",
+          "name": "Decimal Clock",
+          "url": "https://clock.sentryagent.io/"
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is decimal time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Decimal time is a time system introduced during the French Revolution that divides the day into 10 hours, each hour into 100 minutes, and each minute into 100 seconds. This creates 100,000 decimal seconds per day compared to 86,400 standard seconds."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I convert standard time to decimal time?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "To convert standard time to decimal time, calculate the total standard seconds since midnight, divide by 86,400, then multiply by 100,000. Our decimal clock does this conversion automatically in real-time."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Why was decimal time abolished?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Decimal time was officially used in France from 1794 to 1800. It was abolished because it failed to gain widespread adoption - existing clocks couldn't be easily converted, and international trade partners used standard time."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -558,6 +706,54 @@
           display: none;
         }
       }
+
+      /* ============================================
+         ACCESSIBILITY & SEO
+         ============================================ */
+
+      /* Screen reader only content (visible to search engines) */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* Skip link for keyboard users */
+      .skip-link {
+        position: absolute;
+        top: -100%;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: var(--space-3) var(--space-6);
+        background: var(--accent);
+        color: var(--bg-primary);
+        text-decoration: none;
+        border-radius: var(--radius-md);
+        z-index: 9999;
+        font-weight: 500;
+        transition: top 0.3s ease;
+      }
+
+      .skip-link:focus {
+        top: var(--space-4);
+      }
+
+      /* Focus visible styles for accessibility */
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      /* Remove default focus for mouse users */
+      :focus:not(:focus-visible) {
+        outline: none;
+      }
     </style>
   <script type="importmap">
 {
@@ -571,9 +767,22 @@
 }
 </script>
 <link rel="stylesheet" href="/index.css">
-</head>
+  </head>
   <body>
+    <!-- Accessible skip link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    
+    <!-- Noscript fallback -->
+    <noscript>
+      <div style="padding: 2rem; text-align: center; font-family: system-ui, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <h1>Decimal Clock</h1>
+        <p>This application requires JavaScript to display the interactive decimal clock.</p>
+        <p>Please enable JavaScript in your browser settings to use this app.</p>
+      </div>
+    </noscript>
+    
+    <script type="module" src="/index.tsx"></script>
+  </body>
 </html>
